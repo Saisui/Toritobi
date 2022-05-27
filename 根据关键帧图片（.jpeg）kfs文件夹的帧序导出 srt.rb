@@ -1,5 +1,8 @@
 #!/usr/bin/ruby -w
 # -*- coding: UTF-8 -*-
+require 'pathname'
+
+pdir = Pathname.getwd.to_s.split("/")[-1]
 
 ''' 将被去重的帧的图片的名字，按帧序号转化成 srt '''
 
@@ -7,7 +10,8 @@ kfs = ARGV[0]|| (puts("type a folder name for check(default=kfs):") || (iii=gets
 fps = (ARGV[1])||
 	(puts("type a decimal fps number(default=60):") || (iii=gets.to_f; iii>0) && iii )||
 	60.0
-outf = ARGV[2] ||'outline.srt' # 输出文件名
+
+outf = ((ARGV[2]) && (ARGV[2]+".srt"))||(pdir+".srt") # 输出文件名
 
 pingf = (ARGV[3])|| # 延迟帧数
 (puts("type a ping frame count (format: [-]integer, default=0):") || (iii=gets.to_i) && iii )|| 0
