@@ -1,7 +1,7 @@
 
 <body>
 	<img src="2c.png" onclick="mouseDown(event)" onmousewheel="mouseDb(event)" id="2c">
-	<p id="tx" onclick="copyUrl(this)">单击选x,y，滚轮选w,h，弄完点击此处复制</p>
+	<p id="tx" onclick="copyUrl(this)">单击选x,y，滚轮选 w,h 并直接复制，点击此处再次复制</p>
 </body>
 
 <script>
@@ -29,6 +29,7 @@
 		oh = parseInt(evt.pageY) - oy - tp;
 
 		document.getElementById("tx").innerHTML = ox + "," + oy + ";" + ow + "," + oh;
+		copyUrl(tx);
 	}
 	function copyUrl(obj){
         var url=obj.innerHTML;
