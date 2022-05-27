@@ -36,8 +36,8 @@ w *= 2*s
 # x/=s
 # y/=s
 
-`ffmpeg -i 3c.mp4 -vf crop=w=#{w}:h=#{h}:x=#{x}:y=#{y} -an 3c.mp4`
-`ffmpeg -i 2c.mp4 -vf scale=#{w/s}:#{h/s} -an c.mp4`
+`ffmpeg -i 2c.mp4 -vf crop=w=#{w}:h=#{h}:x=#{x}:y=#{y} -an 3c.mp4`
+`ffmpeg -i 3c.mp4 -vf scale=#{w/s}:#{h/s} -an c.mp4`
 # `ffmpeg -i 2c.mp4 -vf crop=w=#{w}:h=#{h}:x=#{x}:y=#{y} -scale=50:-1 c.mp4`
 `mkdir kfs`
 `ffmpeg -i c.mp4 -vsync 2 -f image2 "./kfs/%08d.jpeg`
