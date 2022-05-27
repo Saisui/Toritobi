@@ -19,26 +19,15 @@ else
 	(x,y,w,h) = [vw/10, vh/5*4,vw/10*9, vh/13]
 end
 
-# x=vw/10
-# y=vh/5*4
-# w=vw/10*9
-# h=vh/13
-# x=100
-# y=500
-# w=1000
-# h=100
 
 h /= 2*s
 h *= 2*s
 w /= 2*s
 w *= 2*s
 
-# x/=s
-# y/=s
-
 `ffmpeg -i 2c.mp4 -vf crop=w=#{w}:h=#{h}:x=#{x}:y=#{y} -an 3c.mp4`
 `ffmpeg -i 3c.mp4 -vf scale=#{w/s}:#{h/s} -an c.mp4`
-# `ffmpeg -i 2c.mp4 -vf crop=w=#{w}:h=#{h}:x=#{x}:y=#{y} -scale=50:-1 c.mp4`
+
 `mkdir kfs`
 `ffmpeg -i c.mp4 -vsync 2 -f image2 "./kfs/%08d.jpeg`
 
