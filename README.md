@@ -9,12 +9,7 @@
    - 等待完成。
 5. 完成后多出一个`kfs` 的文件夹，使用去重软件或者 python 库 去重。也可以将关键帧复制到 `kfx` 文件夹。
 6. 完成后，打开`根据关键帧图片（.jpeg）kfs文件夹的帧序导出 srt.rb`，输入所需参数。
-- 完成
-
-<video src="https://user-images.githubusercontent.com/37037844/170799689-9e7ec36d-f81f-4d73-931e-b6695c5b7bc4.mp4">
-
-
-
+   - 完成
 
 
 
