@@ -9,3 +9,5 @@
 上方的 Path 双击 -> 新建 -> 输入你的 ffmpeg 的 bin 文件夹全路径 即可。
 
 比如我的是 `E:\worksofts\__media\ffmpeg\bin`
+
+![ffmpeg 环境变量设置方法](https://user-images.githubusercontent.com/37037844/170719677-eb2c9c9a-252c-44f1-a0d4-4ce42c427a93.png)
