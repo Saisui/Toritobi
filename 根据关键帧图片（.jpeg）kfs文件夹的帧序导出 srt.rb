@@ -3,11 +3,15 @@
 
 ''' 将被去重的帧的图片的名字，按帧序号转化成 srt '''
 
-kfs = ARGV[0] || 'kfs' # 帧图片的文件夹
+kfs = ARGV[0]|| (puts("type a folder name for check(default=kfs):") || (iii=gets; iii!="\n" && iii[..-2] ) )|| 'kfs' # 帧图片的文件夹
 fps = (ARGV[1])||
 	(puts("type a decimal fps number(default=60):") || (iii=gets.to_f; iii>0) && iii )||
 	60.0
 outf = ARGV[2] ||'outline.srt' # 输出文件名
+
+pingf = (ARGV[3])|| # 延迟帧数
+(puts("type a ping frame count (format: [-]integer, default=0):") || (iii=gets.to_i) && iii )|| 0
+
 
 ss=`dir #{kfs}`
 
@@ -17,35 +21,56 @@ ss.each_line{|l| hh << l}
 
 hh = (hh.map{|a| a[-14..-7]})[7..-4]  # 最好是八位数字
 
-allstr = hh.join("\n")
+hh.map!{|e| e.to_i}.
+		map!{|e|
+		if (e + pingf) >= 0 
+			e + pingf
+		else
+			e
+		end
+	}
 
-
-as = allstr.split("\n").  # 输入的所有关键帧序号用换行符分割
-	map{|i|i.to_i}.       # 转成数字
-	map{|i|i/fps}.       # 每个数字按帧率转成秒
-	map{|n|
-			[hn=(n/3600).to_i,  # 时
-			 ((n%3600)/60).to_i,    # 分
-			 n%60.0]}.       # 秒
-	map{|a| ["%02d" % a[0] ,"%02d" % a[1],"%05.2f"% a[2]]}
-
-# as.each do |n|
-# 	puts "#{n[0]}:#{n[1]}"
-# end
-
-aaa = as.map do |n|
-	"#{n[0]}:#{n[1]}:#{n[2]}"
-end
-
-aa=aaa.map{|s| s.gsub(/\./,",")+"0"}
-
-wt=""
-aa.size.times do |i|
-	if i != aa.size-1
-		wt << "#{i}\n#{aa[i]} --> #{aa[i+1]}\n略\n\n"
+aw=[]
+hh.size.times do |i|
+	if hh[i+1]
+		aw << [hh[i], hh[i+1]-1]
 	else
-		wt << "#{i}\n#{aa[i]} --> #{aa[i]}\n略\n\n"
+		aw << [hh[i], hh[i]+1]
 	end
 end
 
+
+aww = aw.map{|p|             # 每一对
+		p.map{|i|i/fps.to_f}.     # 每一对的数字按帧率转成秒
+		map{|n|
+			[hn=(n/3600).to_i,     # 时
+			((n%3600)/60).to_i,    # 分
+			n%60.0]}.              # 秒
+		map{|a| ["%02d" % a[0] ,"%02d" % a[1],("%06.3f"% a[2])]
+		}
+	}
+
+aaa = aww.map {|p|
+	"#{p[0][0]}:#{p[0][1]}:#{p[0][2]} --> #{p[1][0]}:#{p[1][1]}:#{p[1][2]}".gsub(/\./,",")
+}
+
+	# as.each do |n|
+# 	puts "#{n[0]}:#{n[1]}"
+# end
+
+# aaa = as.map do |n|
+# 	"#{n[0]}:#{n[1]}:#{n[2]}"
+# end
+
+# aa=aaa.map{|s| s.gsub(/\./,",")+"0"}
+
+wt=""
+aaa.size.times do |i|
+	hanzi = i.to_s.tr("0123456789","〇一二三四五六七八九")
+	wt << "#{i}\n#{aaa[i]}\n#{hanzi}\n\n"
+end
+
 File.new(outf,'w+').syswrite(wt)
+
+puts '导出完成，按回车退出'
+gets
