@@ -54,16 +54,6 @@ aaa = aww.map {|p|
 	"#{p[0][0]}:#{p[0][1]}:#{p[0][2]} --> #{p[1][0]}:#{p[1][1]}:#{p[1][2]}".gsub(/\./,",")
 }
 
-	# as.each do |n|
-# 	puts "#{n[0]}:#{n[1]}"
-# end
-
-# aaa = as.map do |n|
-# 	"#{n[0]}:#{n[1]}:#{n[2]}"
-# end
-
-# aa=aaa.map{|s| s.gsub(/\./,",")+"0"}
-
 wt=""
 aaa.size.times do |i|
 	hanzi = i.to_s.tr("0123456789","〇一二三四五六七八九")
